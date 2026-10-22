@@ -19,7 +19,7 @@ manuscript.
 |---|---|
 | Datasets | PBMC3k (10x, 36 clusters) and E-MTAB-5061 Segerstolpe pancreas (Smart-seq2, 35 clusters) |
 | Models | 6 free local models (llama.cpp, CPU) + Claude Haiku 4.5 + Claude Sonnet 4.5 |
-| Validity | holds in every configuration tested |
+| Validity | holds in all 45 model configurations under **within-dataset** calibration; cross-dataset and pooled calibration under-cover on the pancreas at α = 0.20 (0.743 and 0.771 against a nominal 0.80) |
 | Resolution | varies more than fourfold across models (23% – 100% at α = 0.10) |
 | Structural limit | α ≤ 0.05 needs n_cal ≥ ⌈1/α⌉ − 1 calibration units; pooling across datasets unlocks it |
 | Class-conditional | group-wise (Mondrian) thresholds relocate the violation rather than removing it |
