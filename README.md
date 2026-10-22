@@ -106,6 +106,8 @@ model.
 
 TODO — add the manuscript reference once available.
 
+Repository: <https://github.com/aysegulsayineker/conformal-cell-annotation>
+
 ## License
 
 MIT, see `LICENSE`.
