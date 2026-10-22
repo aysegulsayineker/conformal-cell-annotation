@@ -1,0 +1,15 @@
+etiket,cl_id,cl_label,derinlik
+CD4 T cells,CL:0000624,"CD4-positive, alpha-beta T cell",8
+CD8 T cells,CL:0000625,"CD8-positive, alpha-beta T cell",8
+NK cells,CL:0000623,natural killer cell,7
+FCGR3A+ Monocytes,CL:0002396,"CD14-low, CD16-positive monocyte",7
+Plasma cells,CL:0000786,plasma cell,7
+Regulatory T cells,CL:0000815,regulatory T cell,7
+B cells,CL:0000236,B cell,6
+CD14+ Monocytes,CL:0001054,CD14-positive monocyte,6
+Plasmacytoid dendritic cells,CL:0000784,plasmacytoid dendritic cell,6
+Dendritic cells,CL:0000451,dendritic cell,5
+Neutrophils,CL:0000775,neutrophil,5
+Hematopoietic stem cells,CL:0000037,hematopoietic stem cell,4
+Erythrocytes,CL:0000232,erythrocyte,4
+Megakaryocytes,CL:0000556,megakaryocyte,3

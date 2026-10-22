@@ -1,0 +1,4 @@
+protokol,PBMC3k,Pankreas
+DE + ifade,0.75,0.914
+yalnız DE,0.722,0.429
+yalnız ifade,0.194,0.914

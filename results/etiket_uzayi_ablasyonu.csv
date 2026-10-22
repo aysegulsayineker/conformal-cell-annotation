@@ -1,0 +1,10 @@
+veri,sinif,n_kume,ref_kapsama,ref_boy,ref_coz,llm_listede_var,llm_var_boy,llm_var_coz,llm_listeden_cikarildi,llm_cik_boy,llm_cik_coz
+Pankreas,pancreatic A cell,11,0.999,4.09,33.6,1.0,5.49,43.5,0.957,6.97,41.8
+Pankreas,pancreatic ductal cell,9,0.964,2.7,19.1,0.778,4.4,60.9,0.705,7.98,30.5
+Pankreas,type B pancreatic cell,5,0.913,2.81,68.9,0.999,5.34,45.3,0.998,4.36,45.3
+Pankreas,acinar cell,3,0.859,2.84,34.1,0.861,5.0,56.4,0.333,6.96,67.3
+Pankreas,pancreatic PP cell,3,0.928,2.76,68.4,1.0,5.29,46.3,1.0,12.46,16.7
+Pankreas,pancreatic D cell,2,0.975,2.95,57.6,1.0,5.26,40.2,1.0,8.2,30.7
+PBMC3k,CD4 T cells,26,0.358,1.58,79.8,1.0,7.5,25.0,1.0,10.23,15.0
+PBMC3k,CD14+ Monocytes,3,0.628,1.75,76.3,0.964,6.64,42.6,0.904,7.09,31.5
+PBMC3k,CD8 T cells,2,0.571,1.63,70.8,1.0,6.64,32.1,0.999,10.65,13.3

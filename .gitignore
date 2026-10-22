@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.h5ad
+*.gguf
+.venv/
+handoff/

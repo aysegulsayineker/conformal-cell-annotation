@@ -1,0 +1,9 @@
+alpha,veri,ongorucu,n_model,rho,p
+0.1,PBMC3k,top-1 doğruluk,7,0.45,0.3104
+0.1,PBMC3k,APS kuyruk (90p),7,-0.604,0.1507
+0.1,Pankreas,top-1 doğruluk,8,0.79,0.0195
+0.1,Pankreas,APS kuyruk (90p),8,-0.912,0.0016
+0.2,PBMC3k,top-1 doğruluk,7,0.893,0.0068
+0.2,PBMC3k,APS kuyruk (90p),7,-0.954,0.0008
+0.2,Pankreas,top-1 doğruluk,8,0.81,0.0149
+0.2,Pankreas,APS kuyruk (90p),8,-0.907,0.0019

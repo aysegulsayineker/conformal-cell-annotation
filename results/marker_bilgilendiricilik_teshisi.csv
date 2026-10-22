@@ -1,0 +1,17 @@
+veri,true_type,kume,kanonik_marker_orani
+PBMC3k,B cells,1,1.0
+PBMC3k,CD14+ Monocytes,3,0.667
+PBMC3k,CD4 T cells,26,0.654
+PBMC3k,CD8 T cells,2,1.0
+PBMC3k,Dendritic cells,1,1.0
+PBMC3k,FCGR3A+ Monocytes,1,1.0
+PBMC3k,Megakaryocytes,1,1.0
+PBMC3k,NK cells,1,1.0
+Pankreas (E-MTAB-5061),acinar cell,3,0.667
+Pankreas (E-MTAB-5061),endothelial cell,1,1.0
+Pankreas (E-MTAB-5061),pancreatic A cell,11,0.0
+Pankreas (E-MTAB-5061),pancreatic D cell,2,1.0
+Pankreas (E-MTAB-5061),pancreatic PP cell,3,1.0
+Pankreas (E-MTAB-5061),pancreatic ductal cell,9,0.222
+Pankreas (E-MTAB-5061),pancreatic stellate cell,1,1.0
+Pankreas (E-MTAB-5061),type B pancreatic cell,5,0.6
