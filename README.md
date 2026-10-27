@@ -21,7 +21,7 @@ manuscript.
 | Models | 6 free local models (llama.cpp, CPU) + Claude Haiku 4.5 + Claude Sonnet 4.5 |
 | Validity | holds in all 16 model-by-dataset configurations at every level tested under **within-dataset** calibration (lowest 0.944 against 0.90, 0.832 against 0.80); pooled calibration under-covers on the pancreas at α = 0.10 (0.891), and at α = 0.20 both cross-dataset (0.655) and pooled (0.709) under-cover there |
 | Resolution | varies more than fourfold across models (23.8% – 100.0% at α = 0.10) |
-| Clustering resolution | coverage holds at every Leiden setting whose calibration half clears the feasibility bar; resolution has an interior optimum, and the coarsest feasible setting is the most informative at α = 0.10 on both datasets |
+| Clustering resolution | coverage holds at every Leiden setting whose calibration half clears the feasibility bar; informativeness moves non-monotonically with no setting best on both datasets at both levels, and the finest feasible setting never bought informativeness here |
 | Structural limit | α ≤ 0.05 needs n_cal ≥ ⌈1/α⌉ − 1 calibration units; pooling across datasets unlocks it |
 | Tie resolution | most of the label vector sits at the smoothing floor, so the ontology supplies the informativeness: breaking those ties at random leaves resolution at 13.9% – 18.6% in thirteen of sixteen cells |
 | Class-conditional | group-wise (Mondrian) thresholds relocate the violation rather than removing it; the feasibility bar applies to a group's units in the **calibration half** of each split, so at α = 0.10 only the endocrine group clears it, in 86.9% of splits |
@@ -43,7 +43,8 @@ scripts/
   api_run.py              API model runs
 labels/                   the 14-label spaces and their Cell Ontology mappings
 votes/                    raw per-cluster vote counts for every run (K = 10)
-  resolution_sweep/       votes for the clustering-resolution sweep, one file per setting
+  fixed_graph_sweep/      resolution sweep on the main analysis's own neighbour graph
+  resolution_sweep/       the same five resolutions on an independently constructed graph
   paper_clustering/       the published clustering re-voted on the current build
 results/                  every table reported in the manuscript
 figures/                  the six manuscript figures
@@ -109,7 +110,8 @@ re-implemented.
 | Table 8 (label-space ablation) | `ablation.py` | `ablasyon_birlesik.csv` |
 | Table 9 (seed replication) | `mondrian.py` | `tohum_yeniden.csv` |
 | Table 10 (vote collapse, top-1) | `recompute.py` | `cokme_kati.csv`, `top1_beraberlik_16hucre.csv` |
-| Table 11, Figure 7 (clustering resolution sweep) | `prep_res.py` → `run_local_v4r.py` → `ressens.py` | `cozunurluk_kumeleme.csv`, `cozunurluk_duyarlilik.csv` |
+| Table 11, Figure 7 (clustering resolution sweep, fixed graph) | `prep_res2.py` → `run_local_v4r.py` → `ressens2.py` → `make_fig_res2.py` | `sabitgraf_ozet_{pbmc,panc}.csv`, `sabitgraf_duyarlilik.csv` |
+| Secondary sweep on an independently constructed graph | `prep_res.py` → `run_local_v4r.py` → `ressens.py` | `cozunurluk_kumeleme.csv`, `cozunurluk_duyarlilik.csv` |
 | Table 12 (build-to-build reproducibility) | `ressens.py` | `ikili_tekrar_kontrolu.csv` |
 
 ## Three definitions, and where they live in the code
@@ -156,13 +158,21 @@ read within itself; `votes/paper_clustering/gemma2-2b_pbmc_PAPER.json` is the pu
 clustering re-voted on that same build, and is the paired measurement behind the
 reproducibility table.
 
-One scope note on the sweep. `prep_res.py` rebuilds the embedding and the nearest-neighbour
-graph from the stored highly-variable-gene matrix, while `prep_cells.py` — which produced the
-clustering used everywhere else — leidens the graph that ships with the processed PBMC3k object
-and, for the pancreas, a 40-component decomposition. The resolution parameter agrees at 3.0 but
-the partition does not: 37 units at mean purity 0.934 against 36 at 0.953 on PBMC3k, and 35 at
-0.992 against 35 at 0.991 on the pancreas. Resolution 3.0 in `cozunurluk_duyarlilik.csv` is a
-second clustering at the same parameter value, not the published one.
+Two sweeps are released, and they differ in what is held fixed.
+
+`prep_res2.py` is the one the manuscript reports. It holds the embedding and the neighbour graph
+at the ones `prep_cells.py` produced and varies only the Leiden parameter, so resolution 3.0
+reproduces the published partition rather than resembling it. The script asserts this at the
+level of cell-to-cluster membership and stops if it fails: the adjusted Rand index against the
+published assignment is 1.0000 on all 2,628 PBMC3k cells and all 2,102 pancreas cells, and the
+recovered partitions carry the published 36 units at mean purity 0.953 and 35 units at 0.991.
+
+`prep_res.py` rebuilds the embedding and the graph from the stored highly-variable-gene matrix,
+so its resolution 3.0 is a second clustering at the same parameter value (37 units at purity
+0.934 on PBMC3k, 35 at 0.992 on the pancreas). Comparing the two bounds the combined effect of
+the graph and the partition it induces: on the pancreas they agree to within 0.3 percentage
+points of resolution at four of five matched settings, while on PBMC3k at resolution 2.0 they
+read 29.1% against 41.6% at alpha=0.10 and 48.3% against 76.7% at alpha=0.20.
 
 ## Not included
 
