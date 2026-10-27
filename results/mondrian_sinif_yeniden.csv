@@ -1,0 +1,65 @@
+model,alpha,esik,sinif,n_kume,kapsama,grup
+qwen25-7b,0.1,marginal,acinar cell,3,0.496,CL:0000150
+qwen25-7b,0.1,marginal,pancreatic ductal cell,9,0.961,CL:0000069
+qwen25-7b,0.1,marginal,pancreatic A cell,11,0.996,CL:0000083
+qwen25-7b,0.1,marginal,type B pancreatic cell,5,0.991,CL:0000083
+qwen25-7b,0.1,marginal,endothelial cell,1,1.0,CL:0000115
+qwen25-7b,0.1,marginal,pancreatic PP cell,3,1.0,CL:0000083
+qwen25-7b,0.1,marginal,pancreatic D cell,2,0.997,CL:0000083
+qwen25-7b,0.1,marginal,pancreatic stellate cell,1,1.0,CL:0000057
+qwen25-7b,0.1,mondrian,acinar cell,3,1.0,CL:0000150
+qwen25-7b,0.1,mondrian,pancreatic ductal cell,9,1.0,CL:0000069
+qwen25-7b,0.1,mondrian,pancreatic A cell,11,0.949,CL:0000083
+qwen25-7b,0.1,mondrian,type B pancreatic cell,5,0.834,CL:0000083
+qwen25-7b,0.1,mondrian,endothelial cell,1,1.0,CL:0000115
+qwen25-7b,0.1,mondrian,pancreatic PP cell,3,1.0,CL:0000083
+qwen25-7b,0.1,mondrian,pancreatic D cell,2,0.92,CL:0000083
+qwen25-7b,0.1,mondrian,pancreatic stellate cell,1,1.0,CL:0000057
+qwen25-7b,0.2,marginal,acinar cell,3,0.336,CL:0000150
+qwen25-7b,0.2,marginal,pancreatic ductal cell,9,0.796,CL:0000069
+qwen25-7b,0.2,marginal,pancreatic A cell,11,0.939,CL:0000083
+qwen25-7b,0.2,marginal,type B pancreatic cell,5,0.796,CL:0000083
+qwen25-7b,0.2,marginal,endothelial cell,1,1.0,CL:0000115
+qwen25-7b,0.2,marginal,pancreatic PP cell,3,1.0,CL:0000083
+qwen25-7b,0.2,marginal,pancreatic D cell,2,0.9,CL:0000083
+qwen25-7b,0.2,marginal,pancreatic stellate cell,1,1.0,CL:0000057
+qwen25-7b,0.2,mondrian,acinar cell,3,1.0,CL:0000150
+qwen25-7b,0.2,mondrian,pancreatic ductal cell,9,0.893,CL:0000069
+qwen25-7b,0.2,mondrian,pancreatic A cell,11,0.888,CL:0000083
+qwen25-7b,0.2,mondrian,type B pancreatic cell,5,0.623,CL:0000083
+qwen25-7b,0.2,mondrian,endothelial cell,1,1.0,CL:0000115
+qwen25-7b,0.2,mondrian,pancreatic PP cell,3,1.0,CL:0000083
+qwen25-7b,0.2,mondrian,pancreatic D cell,2,0.82,CL:0000083
+qwen25-7b,0.2,mondrian,pancreatic stellate cell,1,1.0,CL:0000057
+gemma2-2b,0.1,marginal,acinar cell,3,0.922,CL:0000150
+gemma2-2b,0.1,marginal,pancreatic ductal cell,9,0.972,CL:0000069
+gemma2-2b,0.1,marginal,pancreatic A cell,11,1.0,CL:0000083
+gemma2-2b,0.1,marginal,type B pancreatic cell,5,1.0,CL:0000083
+gemma2-2b,0.1,marginal,endothelial cell,1,0.278,CL:0000115
+gemma2-2b,0.1,marginal,pancreatic PP cell,3,1.0,CL:0000083
+gemma2-2b,0.1,marginal,pancreatic D cell,2,1.0,CL:0000083
+gemma2-2b,0.1,marginal,pancreatic stellate cell,1,0.232,CL:0000057
+gemma2-2b,0.1,mondrian,acinar cell,3,1.0,CL:0000150
+gemma2-2b,0.1,mondrian,pancreatic ductal cell,9,1.0,CL:0000069
+gemma2-2b,0.1,mondrian,pancreatic A cell,11,1.0,CL:0000083
+gemma2-2b,0.1,mondrian,type B pancreatic cell,5,0.834,CL:0000083
+gemma2-2b,0.1,mondrian,endothelial cell,1,1.0,CL:0000115
+gemma2-2b,0.1,mondrian,pancreatic PP cell,3,0.891,CL:0000083
+gemma2-2b,0.1,mondrian,pancreatic D cell,2,0.844,CL:0000083
+gemma2-2b,0.1,mondrian,pancreatic stellate cell,1,1.0,CL:0000057
+gemma2-2b,0.2,marginal,acinar cell,3,0.484,CL:0000150
+gemma2-2b,0.2,marginal,pancreatic ductal cell,9,0.74,CL:0000069
+gemma2-2b,0.2,marginal,pancreatic A cell,11,1.0,CL:0000083
+gemma2-2b,0.2,marginal,type B pancreatic cell,5,1.0,CL:0000083
+gemma2-2b,0.2,marginal,endothelial cell,1,0.0,CL:0000115
+gemma2-2b,0.2,marginal,pancreatic PP cell,3,1.0,CL:0000083
+gemma2-2b,0.2,marginal,pancreatic D cell,2,1.0,CL:0000083
+gemma2-2b,0.2,marginal,pancreatic stellate cell,1,0.0,CL:0000057
+gemma2-2b,0.2,mondrian,acinar cell,3,1.0,CL:0000150
+gemma2-2b,0.2,mondrian,pancreatic ductal cell,9,0.879,CL:0000069
+gemma2-2b,0.2,mondrian,pancreatic A cell,11,1.0,CL:0000083
+gemma2-2b,0.2,mondrian,type B pancreatic cell,5,0.606,CL:0000083
+gemma2-2b,0.2,mondrian,endothelial cell,1,1.0,CL:0000115
+gemma2-2b,0.2,mondrian,pancreatic PP cell,3,0.745,CL:0000083
+gemma2-2b,0.2,mondrian,pancreatic D cell,2,0.613,CL:0000083
+gemma2-2b,0.2,mondrian,pancreatic stellate cell,1,1.0,CL:0000057

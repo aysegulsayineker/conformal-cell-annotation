@@ -1,0 +1,9 @@
+alpha,veri,istatistik,n,rho,p
+0.1,PBMC3k,top-1 accuracy,8,0.771,0.0251
+0.1,PBMC3k,APS tail (90th pct.),8,-0.97,0.0001
+0.1,Pancreas,top-1 accuracy,8,0.898,0.0024
+0.1,Pancreas,APS tail (90th pct.),8,-0.952,0.0003
+0.2,PBMC3k,top-1 accuracy,8,0.874,0.0045
+0.2,PBMC3k,APS tail (90th pct.),8,-0.976,0.0
+0.2,Pancreas,top-1 accuracy,8,0.97,0.0001
+0.2,Pancreas,APS tail (90th pct.),8,-0.905,0.002

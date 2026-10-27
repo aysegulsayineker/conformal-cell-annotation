@@ -1,0 +1,19 @@
+veri,tutulan,n_kume,model,ont_kapsama,kume_boyu,cozunurluk
+panc,pancreatic A cell,11,gemma2-2b,0.939,9.09,24.5
+panc,pancreatic A cell,11,qwen25-7b,0.985,7.57,41.6
+panc,pancreatic ductal cell,9,gemma2-2b,0.72,8.81,28.9
+panc,pancreatic ductal cell,9,qwen25-7b,0.685,8.5,31.8
+panc,type B pancreatic cell,5,gemma2-2b,1.0,8.71,24.8
+panc,type B pancreatic cell,5,qwen25-7b,1.0,5.24,54.9
+panc,acinar cell,3,gemma2-2b,0.811,9.2,32.0
+panc,acinar cell,3,qwen25-7b,0.333,7.69,67.7
+panc,pancreatic PP cell,3,gemma2-2b,1.0,9.17,21.9
+panc,pancreatic PP cell,3,qwen25-7b,1.0,12.51,16.7
+panc,pancreatic D cell,2,gemma2-2b,1.0,8.9,20.8
+panc,pancreatic D cell,2,qwen25-7b,1.0,8.8,31.2
+pbmc,CD4 T cells,26,gemma2-2b,1.0,13.0,12.5
+pbmc,CD4 T cells,26,qwen25-7b,1.0,13.0,12.5
+pbmc,CD14+ Monocytes,3,gemma2-2b,0.877,9.58,37.1
+pbmc,CD14+ Monocytes,3,qwen25-7b,0.903,8.13,30.4
+pbmc,CD8 T cells,2,gemma2-2b,1.0,11.52,16.2
+pbmc,CD8 T cells,2,qwen25-7b,0.955,10.31,22.8

@@ -1,0 +1,28 @@
+veri,tutulan,n_kume,kaynak,ont_kapsama,kume_boyu,cozunurluk
+pbmc,CD4 T cells,26,reference classifier,1.0,7.92,12.5
+pbmc,CD4 T cells,26,LLM gemma2-2b,1.0,10.33,27.6
+pbmc,CD4 T cells,26,LLM qwen25-7b,0.998,9.01,35.5
+pbmc,CD14+ Monocytes,3,reference classifier,0.921,6.34,29.3
+pbmc,CD14+ Monocytes,3,LLM gemma2-2b,0.962,10.27,35.1
+pbmc,CD14+ Monocytes,3,LLM qwen25-7b,0.947,9.06,29.1
+pbmc,CD8 T cells,2,reference classifier,0.773,4.56,42.4
+pbmc,CD8 T cells,2,LLM gemma2-2b,1.0,10.28,27.7
+pbmc,CD8 T cells,2,LLM qwen25-7b,0.95,8.73,35.4
+panc,pancreatic A cell,11,reference classifier,1.0,8.64,16.7
+panc,pancreatic A cell,11,LLM gemma2-2b,1.0,10.05,23.5
+panc,pancreatic A cell,11,LLM qwen25-7b,1.0,6.26,54.3
+panc,pancreatic ductal cell,9,reference classifier,1.0,8.77,16.7
+panc,pancreatic ductal cell,9,LLM gemma2-2b,0.972,10.01,23.7
+panc,pancreatic ductal cell,9,LLM qwen25-7b,0.966,6.25,49.4
+panc,type B pancreatic cell,5,reference classifier,0.992,8.04,19.6
+panc,type B pancreatic cell,5,LLM gemma2-2b,1.0,9.95,24.1
+panc,type B pancreatic cell,5,LLM qwen25-7b,0.999,6.26,55.3
+panc,acinar cell,3,reference classifier,0.97,7.59,23.0
+panc,acinar cell,3,LLM gemma2-2b,0.922,9.94,28.9
+panc,acinar cell,3,LLM qwen25-7b,0.486,6.02,68.0
+panc,pancreatic PP cell,3,reference classifier,0.972,6.74,30.2
+panc,pancreatic PP cell,3,LLM gemma2-2b,1.0,10.03,23.7
+panc,pancreatic PP cell,3,LLM qwen25-7b,1.0,6.29,54.4
+panc,pancreatic D cell,2,reference classifier,0.98,5.42,37.2
+panc,pancreatic D cell,2,LLM gemma2-2b,1.0,10.0,20.1
+panc,pancreatic D cell,2,LLM qwen25-7b,1.0,6.27,46.9

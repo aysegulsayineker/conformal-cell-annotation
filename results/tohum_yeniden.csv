@@ -1,0 +1,17 @@
+model,sinif,n_kume,ort,min,max,yayilim,tohum_nominalin_altinda
+qwen25-7b,acinar cell,3,0.495,0.495,0.495,0.0,3
+qwen25-7b,pancreatic ductal cell,9,0.968,0.963,0.977,0.014,0
+qwen25-7b,pancreatic A cell,11,0.997,0.996,0.998,0.002,0
+qwen25-7b,type B pancreatic cell,5,0.986,0.977,0.991,0.014,0
+qwen25-7b,endothelial cell,1,1.0,1.0,1.0,0.0,0
+qwen25-7b,pancreatic PP cell,3,1.0,1.0,1.0,0.0,0
+qwen25-7b,pancreatic D cell,2,0.991,0.985,0.994,0.009,0
+qwen25-7b,pancreatic stellate cell,1,1.0,1.0,1.0,0.0,0
+gemma2-2b,acinar cell,3,0.935,0.92,0.955,0.035,0
+gemma2-2b,pancreatic ductal cell,9,0.964,0.959,0.968,0.009,0
+gemma2-2b,pancreatic A cell,11,1.0,1.0,1.0,0.0,0
+gemma2-2b,type B pancreatic cell,5,1.0,1.0,1.0,0.0,0
+gemma2-2b,endothelial cell,1,0.292,0.292,0.292,0.0,3
+gemma2-2b,pancreatic PP cell,3,1.0,1.0,1.0,0.0,0
+gemma2-2b,pancreatic D cell,2,1.0,1.0,1.0,0.0,0
+gemma2-2b,pancreatic stellate cell,1,0.248,0.248,0.248,0.0,3

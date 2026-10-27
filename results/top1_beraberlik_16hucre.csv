@@ -1,0 +1,17 @@
+veri,model,n,bos_oy,beraberlikli,kati,liste,fark_kume
+panc,gemma2-2b,35,0,0,0.314,0.314,0
+panc,haiku45,35,4,4,0.829,0.829,0
+panc,llama31-8b,35,0,3,0.571,0.6,1
+panc,llama32-3b,35,0,8,0.257,0.343,3
+panc,mistral-7b,35,0,4,0.257,0.286,1
+panc,qwen25-3b,35,0,1,0.229,0.229,0
+panc,qwen25-7b,35,0,2,0.486,0.514,1
+panc,sonnet45,35,0,0,1.0,1.0,0
+pbmc,gemma2-2b,36,0,2,0.75,0.778,1
+pbmc,haiku45,36,1,1,0.889,0.889,0
+pbmc,llama31-8b,36,0,2,0.028,0.028,0
+pbmc,llama32-3b,36,0,2,0.056,0.083,1
+pbmc,mistral-7b,36,0,2,0.5,0.556,2
+pbmc,qwen25-3b,36,0,2,0.028,0.028,0
+pbmc,qwen25-7b,36,0,2,0.556,0.611,2
+pbmc,sonnet45,36,0,0,0.861,0.861,0

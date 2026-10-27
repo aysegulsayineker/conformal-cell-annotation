@@ -1,0 +1,17 @@
+veri,model,aps_90p
+panc,gemma2-2b,0.9653
+panc,haiku45,0.8832
+panc,llama31-8b,0.9464
+panc,llama32-3b,0.9664
+panc,mistral-7b,0.9646
+panc,qwen25-3b,0.9666
+panc,qwen25-7b,0.9565
+panc,sonnet45,0.8308
+pbmc,gemma2-2b,0.9627
+pbmc,haiku45,0.8813
+pbmc,llama31-8b,0.9722
+pbmc,llama32-3b,0.9699
+pbmc,mistral-7b,0.9475
+pbmc,qwen25-3b,0.9785
+pbmc,qwen25-7b,0.9437
+pbmc,sonnet45,0.9496

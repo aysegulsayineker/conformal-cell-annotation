@@ -19,28 +19,31 @@ manuscript.
 |---|---|
 | Datasets | PBMC3k (10x, 36 clusters) and E-MTAB-5061 Segerstolpe pancreas (Smart-seq2, 35 clusters) |
 | Models | 6 free local models (llama.cpp, CPU) + Claude Haiku 4.5 + Claude Sonnet 4.5 |
-| Validity | holds in all 45 model configurations under **within-dataset** calibration; cross-dataset and pooled calibration under-cover on the pancreas at α = 0.20 (0.743 and 0.771 against a nominal 0.80) |
-| Resolution | varies more than fourfold across models (23% – 100% at α = 0.10) |
+| Validity | holds in all 16 model-by-dataset configurations at every level tested under **within-dataset** calibration (lowest 0.944 against 0.90, 0.832 against 0.80); pooled calibration under-covers on the pancreas at α = 0.10 (0.891), and at α = 0.20 both cross-dataset (0.655) and pooled (0.709) under-cover there |
+| Resolution | varies more than fourfold across models (23.8% – 100.0% at α = 0.10) |
 | Structural limit | α ≤ 0.05 needs n_cal ≥ ⌈1/α⌉ − 1 calibration units; pooling across datasets unlocks it |
-| Class-conditional | group-wise (Mondrian) thresholds relocate the violation rather than removing it |
-| Baseline | a reference-based classifier is far more informative *when* an in-tissue reference exists, and loses validity when no ancestor of the queried type is in the reference |
+| Tie resolution | most of the label vector sits at the smoothing floor, so the ontology supplies the informativeness: breaking those ties at random leaves resolution at 13.9% – 18.6% in thirteen of sixteen cells |
+| Class-conditional | group-wise (Mondrian) thresholds relocate the violation rather than removing it; the feasibility bar applies to a group's units in the **calibration half** of each split, so at α = 0.10 only the endocrine group clears it, in 86.9% of splits |
+| Baseline | a reference-based classifier is far more informative *when* an in-tissue reference exists (95.3% and 97.5% against 37.9% and 53.2%); when a class is removed from the reference it stays ontologically valid by widening its sets, and whether an LLM asserts a deeper node for the same coverage depends on the model and the dataset |
 
 ## Layout
 
 ```
-src/
-  conformal.py            APS scores, split-conformal grid, ontology depth and LCA
-  prep_clusters.py        over-clustering + marker tables (both datasets)
-  prep_cells.py           cell-level matrices for the reference-classifier baseline
-  run_local_llm.py        grammar-constrained voting, local GGUF models
-  run_local_llm_seeded.py same, with an explicit sampling seed
-  baseline.py             reference classifier, novel-type experiment, conformal evaluation
 scripts/
-  run_api_haiku_pbmc.py   API model run (one missing cell of the grid)
+  recompute.py            the single canonical procedure: APS with ontology-aware tie-breaking
+  baseline.py             reference classifier, ontology helpers, conformal evaluation
+  refcmp.py               baseline comparison and the held-out-type experiment
+  ablation.py             held-out type also removed from the prompted label list
+  mondrian.py             group-wise thresholds, class-conditional coverage, multi-seed
+  pooling.py              cross-dataset and pooled calibration regimes
+  prep_cells.py           cell-level matrices for the reference classifier
+  prep_panc_ftp.py        pancreas rebuild from the EBI FTP mirror
+  run_local_v4.py         grammar-constrained voting, local GGUF models
+  api_run.py              API model runs
 labels/                   the 14-label spaces and their Cell Ontology mappings
 votes/                    raw per-cluster vote counts for every run (K = 10)
 results/                  every table reported in the manuscript
-figures/                  the four manuscript figures
+figures/                  the six manuscript figures
 ```
 
 ## Reproducing
@@ -52,20 +55,21 @@ pip install -r requirements.txt
 mkdir -p handoff && cp labels/labels_*.json handoff/
 
 # 1. clusters and marker tables (needs network: Scanpy datasets / EBI Atlas)
-python src/prep_clusters.py pbmc
-python src/prep_clusters.py panc
+python scripts/prep_cells.py pbmc
+python scripts/prep_panc_ftp.py
 
 # 2. LLM votes (a GGUF model file is required; see note below)
-python src/run_local_llm.py <model.gguf> <chat_format> <tag> pbmc
+python scripts/run_local_v4.py <model.gguf> <chat_format> <tag> pbmc
 
 # 3. cell-level matrices, then the baseline and the conformal evaluation
-python src/prep_cells.py pbmc
-python src/prep_cells.py panc
+python scripts/recompute.py
+python scripts/pooling.py
+python scripts/mondrian.py
 ```
 
-Analysis entry points live in `src/baseline.py`: `ref_probs` fits the reference
-classifier, `conf_eval` runs the conformal evaluation, and `novel_eval` runs the
-held-out-type experiment. `src/conformal.py` holds the scoring and ontology helpers.
+Analysis entry points live in `scripts/recompute.py` (the procedure) and
+`scripts/baseline.py` (`ref_probs` fits the reference classifier, `build_onto` builds the
+ontology, `conf_eval` runs the conformal evaluation).
 
 Notes that matter for reproduction:
 
@@ -79,9 +83,53 @@ Notes that matter for reproduction:
   `chat_format` argument must match the model (`chatml`, `gemma`, `llama-3`, …).
 - **Prompt protocol is tissue-dependent.** Differential-expression genes alone are
   sufficient for 10x immune data but not for pancreas, where over-clustering removes the
-  dominant type's marker from the DE list. See the manuscript's Implementation section;
+  dominant type's marker from the DE list. See the manuscript's Methods section;
   `results/protokol_bilgilendiricilik.csv` and
   `results/marker_bilgilendiricilik_teshisi.csv` hold the diagnostic.
+
+
+## Which script produced which table
+
+Every number in the manuscript comes from the scripts in `scripts/`, run on the vote files in
+`votes/`. There is **one** implementation of the procedure: `scripts/recompute.py`. The other
+scripts import it (`exec(open("recompute.py").read()...)`) so that the nonconformity score,
+the tie-breaking rule, the ontology depth and the resolution metric are shared rather than
+re-implemented.
+
+| Manuscript item | Script | Output in `results/` |
+|---|---|---|
+| Table 3, Figure 2, Figure 3 (grid, tie ablation) | `recompute.py` | `izgara_yeniden.csv`, `aps_kuyruk.csv` |
+| Table 4 (calibration regimes) | `pooling.py` | `havuzlama_yeniden.csv` |
+| Table 5 (predictor correlations) | `recompute.py` | `ongorucu_kati.csv` |
+| Table 6, Figure 4 (class-conditional, Mondrian) | `mondrian.py` | `mondrian_sinif_yeniden.csv`, `mondrian_ozet_yeniden.csv`, `mondrian_esik_uygunluk.csv` |
+| Table 7, Figure 5 (baseline, held-out type) | `refcmp.py` | `temel_birlesik.csv`, `yenitip_birlesik.csv` |
+| Table 8 (label-space ablation) | `ablation.py` | `ablasyon_birlesik.csv` |
+| Table 9 (seed replication) | `mondrian.py` | `tohum_yeniden.csv` |
+| Table 10 (vote collapse, top-1) | `recompute.py` | `cokme_kati.csv`, `top1_beraberlik_16hucre.csv` |
+
+## Three definitions that must match the manuscript
+
+These were implemented inconsistently in an earlier version of this repository, which has been
+removed. The current `scripts/` are the only implementation and they define:
+
+1. **Resolution.** The denominator is the depth of *that unit's own true label*, not the
+   maximum depth in the candidate space: `recompute.py` line with `lcad(...)/D[t]`, where `D`
+   is a per-label depth array. `refcmp.py` and `ablation.py` use `D[di]` for the held-out
+   class, which is the same quantity.
+2. **Tie-breaking.** `aps_keyed` orders labels with
+   `np.lexsort((-key, -P))`, so equal probabilities are resolved by `key`. With
+   `key = onto_key(P, lcl, lcad)` this is the ontology-aware rule reported in the paper; with
+   a uniform random key it is the random-tie baseline also reported. Plain `np.argsort(-P)`
+   is **not** used anywhere.
+3. **Ontology depth and LCA on a DAG.** `baseline.py:build_onto` follows *every* parent
+   (`for p in par.get(c, [])`), takes depth as the **longest** path to the root
+   (`1 + max(depth(p) for p in ps)`), and computes the least common ancestor as the deepest
+   member of the intersection of full ancestor closures
+   (`set.intersection(*[A[c] for c in cl_ids])`). Where several candidates share that maximal
+   depth the first in sorted CL-id order is taken, which is deterministic.
+
+Ancestor closures were retrieved from the EBI OLS4 API in October 2026 and are cached in
+`labels/` so that the tables can be reproduced without re-querying the service.
 
 ## Data
 
@@ -104,7 +152,8 @@ model.
 
 ## Citation
 
-TODO — add the manuscript reference once available.
+A manuscript describing this work is in preparation; this section will be updated with the
+reference once it is available.
 
 Repository: <https://github.com/aysegulsayineker/conformal-cell-annotation>
 

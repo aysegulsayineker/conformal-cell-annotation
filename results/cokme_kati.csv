@@ -1,0 +1,17 @@
+veri,model,cokme,oran,top1
+pbmc,gemma2-2b,10/36,0.278,0.75
+pbmc,haiku45,31/36,0.861,0.889
+pbmc,llama31-8b,2/36,0.056,0.028
+pbmc,llama32-3b,2/36,0.056,0.056
+pbmc,mistral-7b,12/36,0.333,0.5
+pbmc,qwen25-3b,5/36,0.139,0.028
+pbmc,qwen25-7b,18/36,0.5,0.556
+pbmc,sonnet45,34/36,0.944,0.861
+panc,gemma2-2b,28/35,0.8,0.314
+panc,haiku45,28/35,0.8,0.829
+panc,llama31-8b,5/35,0.143,0.571
+panc,llama32-3b,0/35,0.0,0.257
+panc,mistral-7b,7/35,0.2,0.257
+panc,qwen25-3b,8/35,0.229,0.229
+panc,qwen25-7b,20/35,0.571,0.486
+panc,sonnet45,35/35,1.0,1.0

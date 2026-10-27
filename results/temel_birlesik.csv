@@ -1,0 +1,19 @@
+veri,kaynak,alpha,kapsama,kume_boyu,cozunurluk
+pbmc,LLM gemma2-2b,0.05,1.0,14.0,13.9
+pbmc,LLM gemma2-2b,0.1,0.946,10.21,31.4
+pbmc,LLM gemma2-2b,0.2,0.857,3.95,71.2
+pbmc,LLM qwen25-7b,0.05,1.0,14.0,13.9
+pbmc,LLM qwen25-7b,0.1,0.946,8.92,37.9
+pbmc,LLM qwen25-7b,0.2,0.849,1.99,86.4
+pbmc,reference classifier,0.05,1.0,14.0,13.9
+pbmc,reference classifier,0.1,1.0,1.23,95.3
+pbmc,reference classifier,0.2,1.0,1.07,98.8
+panc,LLM gemma2-2b,0.05,1.0,14.0,17.9
+panc,LLM gemma2-2b,0.1,0.944,9.84,26.8
+panc,LLM gemma2-2b,0.2,0.832,6.19,60.7
+panc,LLM qwen25-7b,0.05,1.0,14.0,17.9
+panc,LLM qwen25-7b,0.1,0.944,6.21,53.2
+panc,LLM qwen25-7b,0.2,0.836,4.35,73.3
+panc,reference classifier,0.05,1.0,14.0,17.9
+panc,reference classifier,0.1,1.0,1.05,97.5
+panc,reference classifier,0.2,1.0,1.0,99.8
