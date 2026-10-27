@@ -30,6 +30,7 @@ manuscript.
 ## Layout
 
 ```
+ENVIRONMENT.md             model weight digests, library versions, build flags, sampling parameters
 scripts/
   recompute.py            the single canonical procedure: APS with ontology-aware tie-breaking
   baseline.py             reference classifier, ontology helpers, conformal evaluation
@@ -39,7 +40,7 @@ scripts/
   pooling.py              cross-dataset and pooled calibration regimes
   prep_cells.py           cell-level matrices for the reference classifier
   prep_panc_ftp.py        pancreas rebuild from the EBI FTP mirror
-  run_local_v4.py         grammar-constrained voting, local GGUF models
+  run_local_v4.py         schema-constrained voting, local GGUF models
   api_run.py              API model runs
 labels/                   the 14-label spaces and their Cell Ontology mappings
 votes/                    raw per-cluster vote counts for every run (K = 10)
