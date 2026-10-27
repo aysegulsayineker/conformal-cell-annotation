@@ -21,6 +21,7 @@ manuscript.
 | Models | 6 free local models (llama.cpp, CPU) + Claude Haiku 4.5 + Claude Sonnet 4.5 |
 | Validity | holds in all 16 model-by-dataset configurations at every level tested under **within-dataset** calibration (lowest 0.944 against 0.90, 0.832 against 0.80); pooled calibration under-covers on the pancreas at α = 0.10 (0.891), and at α = 0.20 both cross-dataset (0.655) and pooled (0.709) under-cover there |
 | Resolution | varies more than fourfold across models (23.8% – 100.0% at α = 0.10) |
+| Clustering resolution | coverage holds at every Leiden setting whose calibration half clears the feasibility bar; resolution has an interior optimum, and the coarsest feasible setting is the most informative at α = 0.10 on both datasets |
 | Structural limit | α ≤ 0.05 needs n_cal ≥ ⌈1/α⌉ − 1 calibration units; pooling across datasets unlocks it |
 | Tie resolution | most of the label vector sits at the smoothing floor, so the ontology supplies the informativeness: breaking those ties at random leaves resolution at 13.9% – 18.6% in thirteen of sixteen cells |
 | Class-conditional | group-wise (Mondrian) thresholds relocate the violation rather than removing it; the feasibility bar applies to a group's units in the **calibration half** of each split, so at α = 0.10 only the endocrine group clears it, in 86.9% of splits |
@@ -42,6 +43,7 @@ scripts/
   api_run.py              API model runs
 labels/                   the 14-label spaces and their Cell Ontology mappings
 votes/                    raw per-cluster vote counts for every run (K = 10)
+  resolution_sweep/       votes for the clustering-resolution sweep, one file per setting
 results/                  every table reported in the manuscript
 figures/                  the six manuscript figures
 ```
@@ -106,11 +108,13 @@ re-implemented.
 | Table 8 (label-space ablation) | `ablation.py` | `ablasyon_birlesik.csv` |
 | Table 9 (seed replication) | `mondrian.py` | `tohum_yeniden.csv` |
 | Table 10 (vote collapse, top-1) | `recompute.py` | `cokme_kati.csv`, `top1_beraberlik_16hucre.csv` |
+| Table 11, Figure 7 (clustering resolution sweep) | `prep_res.py` → `run_local_v4r.py` → `ressens.py` | `cozunurluk_kumeleme.csv`, `cozunurluk_duyarlilik.csv` |
+| Table 12 (build-to-build reproducibility) | `ressens.py` | `ikili_tekrar_kontrolu.csv` |
 
-## Three definitions that must match the manuscript
+## Three definitions, and where they live in the code
 
-These were implemented inconsistently in an earlier version of this repository, which has been
-removed. The current `scripts/` are the only implementation and they define:
+`scripts/` is the only implementation of the procedure. These are the three choices a reader
+is most likely to want to check against the manuscript, with the line that makes each one:
 
 1. **Resolution.** The denominator is the depth of *that unit's own true label*, not the
    maximum depth in the candidate space: `recompute.py` line with `lcad(...)/D[t]`, where `D`
@@ -120,8 +124,9 @@ removed. The current `scripts/` are the only implementation and they define:
    `np.lexsort((-key, -P))`, so equal probabilities are resolved by `key`. With
    `key = onto_key(P, lcl, lcad)` this is the ontology-aware rule reported in the paper; with
    a uniform random key it is the random-tie baseline also reported. Plain `np.argsort(-P)`
-   is **not** used anywhere.
-3. **Ontology depth and LCA on a DAG.** `baseline.py:build_onto` follows *every* parent
+   appears nowhere in the reporting path.
+3. **Ontology depth and LCA on a DAG.** The Cell Ontology is a directed acyclic graph, so a
+   term can have several parents. `baseline.py:build_onto` follows *every* parent
    (`for p in par.get(c, [])`), takes depth as the **longest** path to the root
    (`1 + max(depth(p) for p in ps)`), and computes the least common ancestor as the deepest
    member of the intersection of full ancestor closures
@@ -139,7 +144,15 @@ Ancestor closures were retrieved from the EBI OLS4 API in October 2026 and are c
 - Cell Ontology — EBI OLS4 API
 
 Raw votes in `votes/` let every table in `results/` be recomputed without re-running any
-model.
+model. This matters for more than convenience: decoder sampling at temperature 1.0 is
+reproducible only within one llama.cpp build, and `results/ikili_tekrar_kontrolu.csv` measures
+how far one configuration moves between two builds (coverage is reproduced; set size,
+resolution, top-1 accuracy and the vote collapse rate move more). The released votes, not the
+binary, are what make these tables re-derivable.
+
+The resolution sweep in `votes/resolution_sweep/` was produced entirely within one build and
+is read within itself; `gemma2-2b_pbmc_PAPER.json` is the same configuration as the main
+analysis run on that build, and is the paired measurement behind the reproducibility table.
 
 ## Not included
 

@@ -1,0 +1,11 @@
+veri,cozunurluk,kume,hucre,saflik,ortanca_boy,tip_hucre,tip_cogunluk,n_cal,uygun_a010,uygun_a020
+panc,0.25,15,2102,0.992,134,8,8,7,False,True
+panc,0.5,21,2102,0.993,108,8,8,10,True,True
+panc,1.0,27,2102,0.988,66,8,8,13,True,True
+panc,2.0,31,2102,0.99,60,8,8,15,True,True
+panc,3.0,35,2102,0.992,48,8,8,17,True,True
+pbmc,0.5,5,2615,0.858,411,8,5,2,False,False
+pbmc,1.0,7,2628,0.932,297,8,7,3,False,False
+pbmc,1.5,13,2628,0.948,189,8,8,6,False,True
+pbmc,2.0,23,2628,0.933,81,8,8,11,True,True
+pbmc,3.0,37,2622,0.934,46,8,8,18,True,True

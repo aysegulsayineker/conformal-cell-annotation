@@ -1,0 +1,9 @@
+olcut,yayinlanan,yeniden,fark
+Coverage (a=0.10),0.946,0.946,0.0
+Set size (a=0.10),10.21,9.87,-0.34
+Resolution % (a=0.10),31.4,29.3,-2.1
+Coverage (a=0.20),0.857,0.845,-0.012
+Set size (a=0.20),3.95,3.6,-0.35
+Resolution % (a=0.20),71.2,52.6,-18.6
+Top-1 accuracy,0.75,0.583,-0.167
+Vote collapse rate,0.278,0.083,-0.195
