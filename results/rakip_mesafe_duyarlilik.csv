@@ -1,0 +1,7 @@
+tutulan_sinif,onto_en_yakin_ref,LCA_derinligi,PCA_en_yakin_ref,PCA_merkez_mesafesi,duyarlilik_otomatik,duyarlilik_sabit
+pancreatic ductal cell,type B pancreatic cell,4,acinar cell,31.84,0.193,0.958
+acinar cell,type B pancreatic cell,3,pancreatic ductal cell,31.84,0.0,0.688
+pancreatic A cell,type B pancreatic cell,5,pancreatic PP cell,16.14,0.018,0.018
+pancreatic D cell,type B pancreatic cell,5,type B pancreatic cell,17.25,0.0,0.0
+pancreatic PP cell,type B pancreatic cell,5,pancreatic A cell,16.14,0.0,0.0
+type B pancreatic cell,pancreatic PP cell,5,pancreatic D cell,17.25,0.0,0.0

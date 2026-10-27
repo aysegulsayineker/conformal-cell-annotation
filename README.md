@@ -22,7 +22,7 @@ manuscript.
 | Validity | holds in all 16 model-by-dataset configurations at every level tested under **within-dataset** calibration (lowest 0.944 against 0.90, 0.832 against 0.80); pooled calibration under-covers on the pancreas at α = 0.10 (0.891), and at α = 0.20 both cross-dataset (0.655) and pooled (0.709) under-cover there |
 | Resolution | varies more than fourfold across models (23.8% – 100.0% at α = 0.10) |
 | Clustering resolution | coverage holds at every Leiden setting whose calibration half clears the feasibility bar; informativeness moves non-monotonically with no setting best on both datasets at both levels, and the finest feasible setting never bought informativeness here |
-| Structural limit | α ≤ 0.05 needs n_cal ≥ ⌈1/α⌉ − 1 calibration units; pooling across datasets unlocks it |
+| Structural limit | α ≤ 0.05 needs n_cal ≥ ⌈1/α⌉ − 1 calibration units; pooling across datasets makes the threshold computable but does not establish exchangeability between tissues |
 | Tie resolution | most of the label vector sits at the smoothing floor, so the ontology supplies the informativeness: breaking those ties at random leaves resolution at 13.9% – 18.6% in thirteen of sixteen cells |
 | Class-conditional | group-wise (Mondrian) thresholds relocate the violation rather than removing it; the feasibility bar applies to a group's units in the **calibration half** of each split, so at α = 0.10 only the endocrine group clears it, in 86.9% of splits |
 | Baseline | a reference-based classifier is far more informative *when* an in-tissue reference exists (95.3% and 97.5% against 37.9% and 53.2%); when a class is removed from the reference it stays ontologically valid by widening its sets, and whether an LLM asserts a deeper node for the same coverage depends on the model and the dataset |
@@ -46,9 +46,9 @@ labels/                   the 14-label spaces and their Cell Ontology mappings
 votes/                    raw per-cluster vote counts for every run (K = 10)
   fixed_graph_sweep/      resolution sweep on the main analysis's own neighbour graph
   resolution_sweep/       the same five resolutions on an independently constructed graph
-  paper_clustering/       the published clustering re-voted on the current build
+  paper_clustering/       the published clustering re-voted under the current stack
 results/                  every table reported in the manuscript
-figures/                  the six manuscript figures
+figures/                  the seven manuscript figures
 ```
 
 ## Reproducing
@@ -103,17 +103,23 @@ re-implemented.
 
 | Manuscript item | Script | Output in `results/` |
 |---|---|---|
+| Table 1 (dataset characteristics) | `prep_cells.py`, `prep_panc_ftp.py` | clustering tables in `handoff/` |
+| Table 2 (prompt-protocol diagnostic) | `recompute.py` | `protokol_bilgilendiricilik.csv`, `marker_bilgilendiricilik_teshisi.csv` |
 | Table 3, Figure 2, Figure 3 (grid, tie ablation) | `recompute.py` | `izgara_yeniden.csv`, `aps_kuyruk.csv` |
 | Table 4 (calibration regimes) | `pooling.py` | `havuzlama_yeniden.csv` |
 | Table 5 (predictor correlations) | `recompute.py` | `ongorucu_kati.csv` |
-| Table 6, Figure 4 (class-conditional, Mondrian) | `mondrian.py` | `mondrian_sinif_yeniden.csv`, `mondrian_ozet_yeniden.csv`, `mondrian_esik_uygunluk.csv` |
-| Table 7, Figure 5 (baseline, held-out type) | `refcmp.py` | `temel_birlesik.csv`, `yenitip_birlesik.csv` |
+| Figure 4 (class-conditional coverage, Mondrian) | `mondrian.py` | `mondrian_sinif_yeniden.csv`, `mondrian_ozet_yeniden.csv`, `mondrian_esik_uygunluk.csv` |
+| Table 6 (three probability sources) | `refcmp.py` | `temel_birlesik.csv` |
+| Table 7, Figure 5 (held-out cell type) | `refcmp.py` | `yenitip_birlesik.csv` |
 | Table 8 (label-space ablation) | `ablation.py` | `ablasyon_birlesik.csv` |
-| Table 9 (seed replication) | `mondrian.py` | `tohum_yeniden.csv` |
-| Table 10 (vote collapse, top-1) | `recompute.py` | `cokme_kati.csv`, `top1_beraberlik_16hucre.csv` |
-| Table 11, Figure 7 (clustering resolution sweep, fixed graph) | `prep_res2.py` → `run_local_v4r.py` → `ressens2.py` → `make_fig_res2.py` | `sabitgraf_ozet_{pbmc,panc}.csv`, `sabitgraf_duyarlilik.csv` |
-| Secondary sweep on an independently constructed graph | `prep_res.py` → `run_local_v4r.py` → `ressens.py` | `cozunurluk_kumeleme.csv`, `cozunurluk_duyarlilik.csv` |
-| Table 12 (build-to-build reproducibility) | `ressens.py` | `ikili_tekrar_kontrolu.csv` |
+| Figure 6 (competing method's anomaly detector) | `refcmp.py` | `rakip_ood_karsilastirma.csv`, `rakip_mesafe_duyarlilik.csv` |
+| Table 9, Figure 7 (clustering resolution sweep, fixed graph) | `prep_res2.py` -> `run_local_v4r.py` -> `ressens2.py` -> `make_fig_res2.py` | `sabitgraf_ozet_{pbmc,panc}.csv`, `sabitgraf_duyarlilik.csv` |
+| Table 10 (reproducibility across installed stacks) | `ressens.py` | `ikili_tekrar_kontrolu.csv` |
+| Table 11 (seed replication) | `mondrian.py` | `tohum_yeniden.csv` |
+| Table 12 (vote collapse, top-1) | `recompute.py` | `cokme_kati.csv`, `top1_beraberlik_16hucre.csv` |
+| Secondary sweep on an independently constructed graph (not a numbered table) | `prep_res.py` -> `run_local_v4r.py` -> `ressens.py` | `cozunurluk_kumeleme.csv`, `cozunurluk_duyarlilik.csv` |
+
+Table numbers follow the compiled manuscript. Figures 1 to 7 are in `figures/`.
 
 ## Three definitions, and where they live in the code
 
@@ -149,15 +155,16 @@ Ancestor closures were retrieved from the EBI OLS4 API in October 2026 and are c
 
 Raw votes in `votes/` let every table in `results/` be recomputed without re-running any
 model. This matters for more than convenience: decoder sampling at temperature 1.0 is
-reproducible only within one llama.cpp build, and `results/ikili_tekrar_kontrolu.csv` measures
-how far one configuration moves between two builds (coverage is reproduced; set size,
-resolution, top-1 accuracy and the vote collapse rate move more). The released votes, not the
-binary, are what make these tables re-derivable.
+reproducible only within one installed inference stack, and `results/ikili_tekrar_kontrolu.csv`
+measures how far one configuration moves between two of them: a different release of the Python
+bindings, carrying its own prebuilt llama.cpp libraries, replaced the one the main grid was run
+under, with nothing recompiled from source. Coverage is reproduced; set size, resolution, top-1
+accuracy and the vote collapse rate move more. The released votes, not the installed stack, are
+what make these tables re-derivable.
 
-The resolution sweep in `votes/resolution_sweep/` was produced entirely within one build and is
-read within itself; `votes/paper_clustering/gemma2-2b_pbmc_PAPER.json` is the published
-clustering re-voted on that same build, and is the paired measurement behind the
-reproducibility table.
+Both sweeps were produced entirely under one installed stack and are read within themselves;
+`votes/paper_clustering/gemma2-2b_pbmc_PAPER.json` is the published clustering re-voted under
+that same stack, and is the paired measurement behind the reproducibility table.
 
 Two sweeps are released, and they differ in what is held fixed.
 
@@ -171,9 +178,13 @@ recovered partitions carry the published 36 units at mean purity 0.953 and 35 un
 `prep_res.py` rebuilds the embedding and the graph from the stored highly-variable-gene matrix,
 so its resolution 3.0 is a second clustering at the same parameter value (37 units at purity
 0.934 on PBMC3k, 35 at 0.992 on the pancreas). Comparing the two bounds the combined effect of
-the graph and the partition it induces: on the pancreas they agree to within 0.3 percentage
-points of resolution at four of five matched settings, while on PBMC3k at resolution 2.0 they
-read 29.1% against 41.6% at alpha=0.10 and 48.3% against 76.7% at alpha=0.20.
+the graph and the partition it induces, and the agreement is level-dependent. On the pancreas
+the two agree to within 0.3 percentage points of resolution at four of five matched settings at
+alpha=0.20, the exception being Leiden 0.25 at 8.0 points; at alpha=0.10 they agree that closely
+at three of five, with Leiden 2.0 differing by 0.6 points and 0.25 by 2.2. On PBMC3k the
+differences are larger throughout: at Leiden 2.0 the figures read 29.1% against 41.6% at
+alpha=0.10 and 48.3% against 76.7% at alpha=0.20. Graph construction can therefore affect
+informativeness independently of the Leiden parameter.
 
 ## Not included
 
