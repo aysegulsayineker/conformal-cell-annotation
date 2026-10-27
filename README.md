@@ -44,6 +44,7 @@ scripts/
 labels/                   the 14-label spaces and their Cell Ontology mappings
 votes/                    raw per-cluster vote counts for every run (K = 10)
   resolution_sweep/       votes for the clustering-resolution sweep, one file per setting
+  paper_clustering/       the published clustering re-voted on the current build
 results/                  every table reported in the manuscript
 figures/                  the six manuscript figures
 ```
@@ -150,9 +151,18 @@ how far one configuration moves between two builds (coverage is reproduced; set 
 resolution, top-1 accuracy and the vote collapse rate move more). The released votes, not the
 binary, are what make these tables re-derivable.
 
-The resolution sweep in `votes/resolution_sweep/` was produced entirely within one build and
-is read within itself; `gemma2-2b_pbmc_PAPER.json` is the same configuration as the main
-analysis run on that build, and is the paired measurement behind the reproducibility table.
+The resolution sweep in `votes/resolution_sweep/` was produced entirely within one build and is
+read within itself; `votes/paper_clustering/gemma2-2b_pbmc_PAPER.json` is the published
+clustering re-voted on that same build, and is the paired measurement behind the
+reproducibility table.
+
+One scope note on the sweep. `prep_res.py` rebuilds the embedding and the nearest-neighbour
+graph from the stored highly-variable-gene matrix, while `prep_cells.py` — which produced the
+clustering used everywhere else — leidens the graph that ships with the processed PBMC3k object
+and, for the pancreas, a 40-component decomposition. The resolution parameter agrees at 3.0 but
+the partition does not: 37 units at mean purity 0.934 against 36 at 0.953 on PBMC3k, and 35 at
+0.992 against 35 at 0.991 on the pancreas. Resolution 3.0 in `cozunurluk_duyarlilik.csv` is a
+second clustering at the same parameter value, not the published one.
 
 ## Not included
 

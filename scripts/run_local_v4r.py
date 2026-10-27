@@ -1,7 +1,7 @@
 """run_local_v4.py ile BIREBIR ayni istem ve kisitlama; yalniz kume dosyasi parametrik.
 Fark yok: ayni SYS metni, ayni prompt() (her iki veri setinde de top_expressed),
 ayni response_format JSON semasi, ayni ornekleme ayarlari."""
-import json, sys, time, collections, os
+import json, sys, time, collections, os, re
 import pandas as pd
 from llama_cpp import Llama
 model_path, chat_format, tag, ds, clpath, outpath = sys.argv[1:7]
@@ -36,6 +36,8 @@ for r in cl.itertuples():
         except Exception: bad += 1
     out.append({"cluster": str(r.cluster), "counts": dict(c)})
 meta = json.load(open(outpath + ".meta")) if os.path.exists(outpath + ".meta") else {}
+m = re.search(r"_r([0-9.]+)\.csv$", clpath)          # cozunurluk kume dosyasi adindan
+if m: meta.setdefault("resolution", float(m.group(1)))
 json.dump({"model": tag, "dataset": ds, "K": K, "bad": bad, "seconds": round(time.time() - t0, 1),
            "clusters": out, **meta}, open(outpath, "w"))
 print(f"BITTI {ds}/{tag} {clpath} bad={bad} sure={time.time()-t0:.0f}s", flush=True)
